@@ -29,7 +29,26 @@ public class Trie {
         List<Map<Character, Integer>> trie = new ArrayList<Map<Character, Integer>>();
 
         // write your code here
+        //初始话根节点
+        HashMap<Character,Integer> map0= new HashMap<>();
+        trie.add(map0);
+        int nodeNum=1;//记录node的编号
 
+
+        for(String pat : patterns){
+            Map<Character,Integer> tempMap=map0;
+            for(int i=0;i<pat.length();i++){
+                if(!tempMap.containsKey(pat.charAt(i))){
+                    tempMap.put(pat.charAt(i),nodeNum);
+                    nodeNum++;
+                    HashMap<Character,Integer> newMap = new HashMap<>();
+                    trie.add(newMap);
+                    tempMap=newMap;
+                }else {
+                    tempMap=trie.get(tempMap.get(pat.charAt(i)));
+                }
+            }
+        }
         return trie;
     }
 
